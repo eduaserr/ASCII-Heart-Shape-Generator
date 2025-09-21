@@ -29,7 +29,6 @@ sudo apt install g++ build-essential
 ### Compilación del Programa
 ```bash
 # Navegar al directorio del proyecto
-cd /home/user/proyects
 
 # Compilar el programa C++
 g++ -o super_heart super_heart.cpp
@@ -84,23 +83,18 @@ file super_heart
 ```bash
 wc -l imageascii.txt
 ```
-**Resultado esperado:** `81 imageascii.txt`
-
-### Ver Archivos del Proyecto
-```bash
-ls -la /home/user/proyects/
-```
 
 ## 🎯 Uso Diario (Comandos Rápidos)
 
 ### Compilar (Solo cuando modificas el código)
 ```bash
-cd /home/user/proyects && g++ -o super_heart super_heart.cpp
+g++ -o super_heart super_heart.cpp
 ```
 
 ### Ejecutar (Uso normal)
 ```bash
-cd /home/user/proyects && echo "" | ./super_heart imageascii.txt
+./super_heart imageascii.txt
+"Press Enter"
 ```
 
 ## 🐛 Solución de Problemas
@@ -109,7 +103,7 @@ cd /home/user/proyects && echo "" | ./super_heart imageascii.txt
 ```bash
 # Verificar que estás en el directorio correcto
 pwd
-# Debe mostrar: /home/eduaserr/proyects
+
 ```
 
 ### Error de Compilación
