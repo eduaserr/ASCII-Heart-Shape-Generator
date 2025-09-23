@@ -46,7 +46,7 @@ def main():
     image_path = sys.argv[1]
     output_file = sys.argv[2] if len(sys.argv) > 2 else "heart_image.txt"
     
-    print(f"Convirtiendo {image_path} para corazón...")
+    print(f"Converting {image_path} for heart...")
     
     ascii_result = image_to_ascii(image_path, width=60, height=40)
     
@@ -55,8 +55,8 @@ def main():
         for line in ascii_result:
             f.write(line + '\n')
     
-    print(f"Imagen ASCII guardada en: {output_file}")
-    print(f"Dimensiones: {len(ascii_result[0]) if ascii_result else 0}x{len(ascii_result)}")
+    print(f"ASCII image saved in: {output_file}")
+    print(f"Proportions: {len(ascii_result[0]) if ascii_result else 0}x{len(ascii_result)}")
 
 if __name__ == "__main__":
     main()

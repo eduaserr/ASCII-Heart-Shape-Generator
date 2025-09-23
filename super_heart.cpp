@@ -13,35 +13,35 @@
 using namespace std;
 
 // ================================
-// funciones de print
+// funciones de printeo
 // ================================
 
 void showUsageHelp() {
-	cout << "💡 Uso: ./super_heart <archivo_imagen.txt> [archivo_salida.txt]" << endl;
-	cout << "   - archivo_imagen.txt: Imagen ASCII de entrada (obligatorio)" << endl;
-	cout << "   - archivo_salida.txt: Archivo donde guardar (opcional, si no se especifica muestra en pantalla)" << endl;
-	cout << endl;
-	cout << "📋 Ejemplos:" << endl;
-	cout << "   ./super_heart imageascii.txt				# Mostrar en pantalla" << endl;
-	cout << "   ./super_heart imageascii.txt resultado.txt  # Guardar en archivo" << endl;
+    cout << "💡 Usage: ./super_heart <image_file.txt> [output_file.txt]" << endl;
+    cout << "   - image_file.txt: ASCII image input file (required)" << endl;
+    cout << "   - output_file.txt: File to save output (optional, if not specified shows on screen)" << endl;
+    cout << endl;
+    cout << "📋 Examples:" << endl;
+    cout << "   ./super_heart imageascii.txt                # Show on screen" << endl;
+    cout << "   ./super_heart imageascii.txt result.txt     # Save to file" << endl;
 }
 void showAvailableFiles() {
-	cout << "💡 Archivos disponibles en el directorio actual:" << endl;
-	system("ls -1 *.txt 2>/dev/null || echo '   No se encontraron archivos .txt'");
-	cout << endl;
+    cout << "💡 Available files in current directory:" << endl;
+    system("ls -1 *.txt 2>/dev/null || echo '   No .txt files found'");
+    cout << endl;
 }
 void showFileError(const string& filename) {
-	cout << "❌ ERROR: No se pudo abrir el archivo '" << filename << "'" << endl;
-	cout << "🔍 Verifica que:" << endl;
-	cout << "   - El archivo existe en el directorio actual" << endl;
-	cout << "   - El nombre del archivo está escrito correctamente" << endl;
-	cout << "   - Tienes permisos de lectura para el archivo" << endl;
-	cout << endl;
-	showAvailableFiles();
+    cout << "❌ ERROR: Could not open file '" << filename << "'" << endl;
+    cout << "🔍 Verify that:" << endl;
+    cout << "   - The file exists in current directory" << endl;
+    cout << "   - The filename is spelled correctly" << endl;
+    cout << "   - You have read permissions for the file" << endl;
+    cout << endl;
+    showAvailableFiles();
 }
 void showImageInfo(int width, int height) {
-	cout << "✅ Imagen cargada: " << width << "x" << height << " caracteres" << endl;
-	cout << "🖤 Creando corazón adaptado a la imagen..." << endl << endl;
+    cout << "✅ Image loaded: " << width << "x" << height << " characters" << endl;
+    cout << "🖤 Creating heart adaptive for the image..." << endl << endl;
 }
 
 // ================================
@@ -56,13 +56,13 @@ bool validateImageData(const vector<string>& image) {
 }
 bool validateOutputFile(const string& outputFile, ofstream& outFile) {
 	if (outputFile.empty()) {
-		return true; // No hay archivo de salida, usar pantalla
+		return true;
 	}
 
 	outFile.open(outputFile);
 	if (!outFile.is_open()) {
-		cout << "❌ ERROR: No se pudo crear el archivo '" << outputFile << "'" << endl;
-		cout << "🔍 Verifica permisos de escritura en el directorio" << endl;
+		cout << "❌ ERROR: Couldn`t create file '" << outputFile << "'" << endl;
+		cout << "🔍 Verify writing permisions for directory" << endl;
 		return false;
 	}
 	return true;
@@ -77,7 +77,7 @@ string getImageFileName(int argc, char** argv) {
 		return string(argv[1]);
 	}
 	string filename;
-	cout << "📁 Ingresa el archivo de imagen ASCII: ";
+	cout << "📁 Enter ASCII image file: ";
 	getline(cin, filename);
 	return filename;
 }
@@ -86,7 +86,7 @@ string getOutputFileName(int argc, char** argv) {
 		return string(argv[2]);
 	}
 	string filename;
-	cout << "📝 Ingresa el archivo de salida (opcional, presiona Enter para mostrar en pantalla): ";
+	cout << "📝 Enter output file (optional, press Enter to show on screen): ";
 	getline(cin, filename);
 	return filename;
 }
@@ -96,12 +96,12 @@ string getOutputFileName(int argc, char** argv) {
 // ================================
 
 bool isInsideHeart(float x, float y) {
-	// Adaptar el corazón a las dimensiones de la imagen
-	// Normalizar las coordenadas para que el corazón cubra toda la imagen
+	// Adaptar el corazon a las dimensiones de la imagen
+	// Normalizar las coordenadas para que el corazon cubra toda la imagen
 	float nx = (x - 50.0f) / 40.0f;  // Centrar en x=50, escalar para width
 	float ny = (40.0f - y) / 35.0f;  // Centrar en y=40, invertir Y, escalar para height
 		
-	// Ecuación del corazón: (x^2 + y^2 - 1)^3 - x^2*y^3 <= 0
+	// Ecuacion del corazon: (x^2 + y^2 - 1)^3 - x^2*y^3 <= 0
 	float a = nx * nx + ny * ny - 1.0f;
 	return (a * a * a - nx * nx * ny * ny * ny) <= 0.0f;
 }
@@ -113,7 +113,7 @@ vector<string> readASCIIImage(const string& filename) {
 
 	if (!file.is_open()) {
 		showFileError(filename);
-		return image; // Vector vacío indica error
+		return image; // Vector vacio indica error
 	}
 
 	while (getline(file, line)) {
@@ -154,11 +154,11 @@ void generateHeartOutput(const vector<string>& asciiImage, ofstream& outFile, bo
 
 		for (int x = 0; x < imageWidth; x++) {
 			if (isInsideHeart((float)x, (float)y)) {
-				// Dentro del corazón: usar carácter de la imagen original
+				// Dentro del corazon: usar caracter de la imagen original
 				char pixel = getPixelFromImage(asciiImage, x, y);
 				line += formatPixelForOutput(pixel, !outputToFile);
 			} else {
-				// Fuera del corazón: espacio vacío
+				// Fuera del corazon: espacio vacio
 				line += " ";
 			}
 		}
@@ -179,7 +179,7 @@ int main(int argc, char **argv) {
 
 	// Validar nombre de archivo
 	if (!validateFileName(imageFile)) {
-		cout << "❌ ERROR: Debes especificar un archivo válido." << endl;
+		cout << "❌ ERROR: specify valid file." << endl;
 		showUsageHelp();
 		return 1;
 	}
@@ -187,14 +187,14 @@ int main(int argc, char **argv) {
 	// Leer imagen ASCII
 	vector<string> asciiImage = readASCIIImage(imageFile);
 
-	// Validar que se cargó correctamente
+	// Validar que se cargo correctamente
 	if (!validateImageData(asciiImage)) {
-		cout << "❌ ERROR: No se pudo cargar la imagen ASCII." << endl;
-		cout << "🔄 Intenta ejecutar el programa nuevamente con un archivo válido." << endl;
+		cout << "❌ ERROR: could not load ASCII file." << endl;
+		cout << "🔄 Try running the program again with a valid file." << endl;
 		showUsageHelp();
 		return 1;
 	}
-	// Mostrar información de la imagen
+	// Mostrar informacion de la imagen
 	int imageWidth, imageHeight;
 	calculateImageDimensions(asciiImage, imageWidth, imageHeight);
 	showImageInfo(imageWidth, imageHeight);
@@ -204,11 +204,11 @@ int main(int argc, char **argv) {
 	if (!validateOutputFile(outputFile, outFile)) {
 		return 1;
 	}
-	// Generar el súper corazón
+	// Generar el súper corazon
 	generateHeartOutput(asciiImage, outFile, outputToFile);
 	if (outputToFile) {
 		outFile.close();
-		cout << "✅ Súper corazón guardado en: " << outputFile << endl;
+		cout << "✅ Super Heart saved in: " << outputFile << endl;
 	}
 	return 0;
 }
